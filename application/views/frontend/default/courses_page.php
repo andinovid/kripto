@@ -1,10 +1,10 @@
 <?php
-isset($layout) ? "": $layout = "list";
-isset($selected_category_id) ? "": $selected_category_id = "all";
-isset($selected_level) ? "": $selected_level = "all";
-isset($selected_language) ? "": $selected_language = "all";
-isset($selected_rating) ? "": $selected_rating = "all";
-isset($selected_price) ? "": $selected_price = "all";
+isset($layout) ? "" : $layout = "list";
+isset($selected_category_id) ? "" : $selected_category_id = "all";
+isset($selected_level) ? "" : $selected_level = "all";
+isset($selected_language) ? "" : $selected_language = "all";
+isset($selected_rating) ? "" : $selected_rating = "all";
+isset($selected_price) ? "" : $selected_price = "all";
 // echo $selected_category_id.'-'.$selected_level.'-'.$selected_language.'-'.$selected_rating.'-'.$selected_price;
 $number_of_visible_categories = 10;
 if (isset($sub_category_id)) {
@@ -14,273 +14,151 @@ if (isset($sub_category_id)) {
     $sub_category_name    = $sub_category_details['name'];
 }
 ?>
+<div class="mdk-header-layout__content mdk-header-layout__content--fullbleed mdk-header-layout__content--scrollable page" style="padding-top: 60px;">
+    <div class="page__heading border-bottom">
+        <div class="container-fluid page__container d-flex align-items-center">
+            <h1 class="mb-0">
+                <?php
+                if ($selected_category_id == "all") {
+                    echo "Explore Courses";
+                } else {
+                    $category_details = $this->crud_model->get_category_details_by_id($selected_category_id)->row_array();
+                    echo $category_details['name'];
+                }
+                ?>
+            </h1>
 
-<section class="category-header-area">
-    <div class="container-lg">
-        <div class="row">
-            <div class="col">
-                <nav>
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="<?php echo site_url('home'); ?>"><i class="fas fa-home"></i></a></li>
-                        <li class="breadcrumb-item">
-                            <a href="#">
-                                <?php echo site_phrase('courses'); ?>
-                            </a>
-                        </li>
-                        <li class="breadcrumb-item active">
-                            <?php
-                                if ($selected_category_id == "all") {
-                                    echo site_phrase('all_category');
-                                }else {
-                                    $category_details = $this->crud_model->get_category_details_by_id($selected_category_id)->row_array();
-                                    echo $category_details['name'];
-                                }
-                             ?>
-                        </li>
-                    </ol>
-                </nav>
-            </div>
         </div>
     </div>
-</section>
 
+    <div class="container-fluid page__container">
+        <form action="#" class="mb-3 border-bottom pb-3">
+            <div class="d-flex">
+                <div class="search-form mr-3 search-form--light">
+                    <input type="text" class="form-control" placeholder="Search courses" id="searchSample02">
+                    <button class="btn" type="button"><i class="material-icons">search</i></button>
+                </div>
+                <div class="form-inline ml-auto">
+                    <div class="form-group mr-3">
+                        <label for="filter-category" class="form-label mr-1">Category</label>
+                        <select id="filter-category" class="form-control custom-select" style="width: 200px;" onchange="filter(this)">
+                            <option value="all">Semua Kategori</option>
+                            <?php
+                            $counter = 1;
+                            $total_number_of_categories = $this->db->get('category')->num_rows();
+                            $categories = $this->crud_model->get_categories()->result_array();
+                            foreach ($categories as $category) : ?>
+                                <option value="<?php echo $category['slug']; ?>" <?php if ($selected_category_id == $category['id']) echo 'selected'; ?>><?php echo $category['name']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </form>
 
-<section class="category-course-list-area">
-    <div class="container">
-        <div class="category-filter-box filter-box clearfix">
-            <span><?php echo site_phrase('showing_on_this_page'); ?> : <?php echo count($courses); ?></span>
-            <a href="javascript::" onclick="toggleLayout('grid')" style="float: right; font-size: 19px; margin-left: 5px;"><i class="fas fa-th"></i></a>
-            <a href="javascript::" onclick="toggleLayout('list')" style="float: right; font-size: 19px;"><i class="fas fa-th-list"></i></a>
-            <a href="<?php echo site_url('home/courses'); ?>" style="float: right; font-size: 19px; margin-right: 5px;"><i class="fas fa-sync-alt"></i></a>
-        </div>
         <div class="row">
-            <div class="col-lg-3 filter-area">
-                <div class="card">
-                    <a href="javascript::"  style="color: unset;">
-                        <div class="card-header filter-card-header" id="headingOne" data-toggle="collapse" data-target="#collapseFilter" aria-expanded="true" aria-controls="collapseFilter">
-                            <h6 class="mb-0">
-                                <?php echo site_phrase('filter'); ?>
-                                <i class="fas fa-sliders-h" style="float: right;"></i>
-                            </h6>
+            <?php foreach ($courses as $course) :
+                $instructor_details = $this->user_model->get_all_user($course['user_id'])->row_array(); ?>
+                <div class="col-md-3">
+                    <div class="card card__course">
+                        <div class="card-header card-header-large card-header-dark bg-dark d-flex justify-content-center p-0">
+                            <a class="d-block" href="<?php echo site_url('home/course/' . rawurlencode(slugify($course['title'])) . '/' . $course['id']); ?>" style="background-image:url('<?php echo $this->crud_model->get_course_thumbnail_url($course['id']); ?>'); background-size:cover; width:100%; height:100%;">
+                            </a>
                         </div>
-                    </a>
-                    <div id="collapseFilter" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                        <div class="card-body pt-0">
-                            <div class="filter_type">
-                                <h6><?php echo site_phrase('categories'); ?></h6>
-                                <ul>
-                                    <li class="ml-2">
-                                        <div class="">
-                                            <input type="radio" id="category_all" name="sub_category" class="categories custom-radio" value="all" onclick="filter(this)" <?php if($selected_category_id == 'all') echo 'checked'; ?>>
-                                            <label for="category_all"><?php echo site_phrase('all_category'); ?></label>
-                                        </div>
-                                    </li>
+                        <div class="p-3">
+                            <div class="mb-2">
+                                <a class="card-header__title list-course-title" title="<?php echo $course['title']; ?>" href="<?php echo site_url('home/course/' . rawurlencode(slugify($course['title'])) . '/' . $course['id']); ?>">
+                                    <?php echo $course['title']; ?>
+                                </a>
+                                <span class="mr-2">
                                     <?php
-                                    $counter = 1;
-                                    $total_number_of_categories = $this->db->get('category')->num_rows();
-                                    $categories = $this->crud_model->get_categories()->result_array();
-                                    foreach ($categories as $category): ?>
-                                        <li class="">
-                                            <div class="<?php if ($counter > $number_of_visible_categories): ?> hidden-categories hidden <?php endif; ?>">
-                                                <input type="radio" id="category-<?php echo $category['id'];?>" name="sub_category" class="categories custom-radio" value="<?php echo $category['slug']; ?>" onclick="filter(this)" <?php if($selected_category_id == $category['id']) echo 'checked'; ?>>
-                                                <label for="category-<?php echo $category['id'];?>"><?php echo $category['name']; ?></label>
-                                            </div>
-                                        </li>
-                                        <?php foreach ($this->crud_model->get_sub_categories($category['id']) as $sub_category):
-                                            $counter++; ?>
-                                            <li class="ml-2">
-                                                <div class="<?php if ($counter > $number_of_visible_categories): ?> hidden-categories hidden <?php endif; ?>">
-                                                    <input type="radio" id="sub_category-<?php echo $sub_category['id'];?>" name="sub_category" class="categories custom-radio" value="<?php echo $sub_category['slug']; ?>" onclick="filter(this)" <?php if($selected_category_id == $sub_category['id']) echo 'checked'; ?>>
-                                                    <label for="sub_category-<?php echo $sub_category['id'];?>"><?php echo $sub_category['name']; ?></label>
-                                                </div>
-                                            </li>
-                                        <?php endforeach; ?>
-                                    <?php endforeach; ?>
-                                </ul>
-                                <a href="javascript::" id = "city-toggle-btn" onclick="showToggle(this, 'hidden-categories')" style="font-size: 12px;"><?php echo $total_number_of_categories > $number_of_visible_categories ? site_phrase('show_more') : ""; ?></a>
-                            </div>
-                            <hr>
-                            <div class="filter_type">
-                                <div class="form-group">
-                                    <h6><?php echo site_phrase('price'); ?></h6>
-                                    <ul>
-                                        <li>
-                                            <div class="">
-                                                <input type="radio" id="price_all" name="price" class="prices custom-radio" value="all" onclick="filter(this)" <?php if($selected_price == 'all') echo 'checked'; ?>>
-                                                <label for="price_all"><?php echo site_phrase('all'); ?></label>
-                                            </div>
-                                            <div class="">
-                                                <input type="radio" id="price_free" name="price" class="prices custom-radio" value="free" onclick="filter(this)" <?php if($selected_price == 'free') echo 'checked'; ?>>
-                                                <label for="price_free"><?php echo site_phrase('free'); ?></label>
-                                            </div>
-                                            <div class="">
-                                                <input type="radio" id="price_paid" name="price" class="prices custom-radio" value="paid" onclick="filter(this)" <?php if($selected_price == 'paid') echo 'checked'; ?>>
-                                                <label for="price_paid"><?php echo site_phrase('paid'); ?></label>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="filter_type">
-                                <h6><?php echo site_phrase('level'); ?></h6>
-                                <ul>
-                                    <li>
-                                        <div class="">
-                                            <input type="radio" id="all" name="level" class="level custom-radio" value="all" onclick="filter(this)" <?php if($selected_level == 'all') echo 'checked'; ?>>
-                                            <label for="all"><?php echo site_phrase('all'); ?></label>
-                                        </div>
-                                        <div class="">
-                                            <input type="radio" id="beginner" name="level" class="level custom-radio" value="beginner" onclick="filter(this)" <?php if($selected_level == 'beginner') echo 'checked'; ?>>
-                                            <label for="beginner"><?php echo site_phrase('beginner'); ?></label>
-                                        </div>
-                                        <div class="">
-                                            <input type="radio" id="advanced" name="level" class="level custom-radio" value="advanced" onclick="filter(this)" <?php if($selected_level == 'advanced') echo 'checked'; ?>>
-                                            <label for="advanced"><?php echo site_phrase('advanced'); ?></label>
-                                        </div>
-                                        <div class="">
-                                            <input type="radio" id="intermediate" name="level" class="level custom-radio" value="intermediate" onclick="filter(this)" <?php if($selected_level == 'intermediate') echo 'checked'; ?>>
-                                            <label for="intermediate"><?php echo site_phrase('intermediate'); ?></label>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <hr>
-                            <div class="filter_type">
-                                <h6><?php echo site_phrase('language'); ?></h6>
-                                <ul>
-                                    <li>
-                                        <div class="">
-                                            <input type="radio" id="all_language" name="language" class="languages custom-radio" value="<?php echo 'all'; ?>" onclick="filter(this)" <?php if($selected_language == "all") echo 'checked'; ?>>
-                                            <label for="<?php echo 'all_language'; ?>"><?php echo site_phrase('all'); ?></label>
-                                        </div>
-                                    </li>
-                                    <?php
-                                    $languages = $this->crud_model->get_all_languages();
-                                    foreach ($languages as $language): ?>
-                                        <li>
-                                            <div class="">
-                                                <input type="radio" id="language_<?php echo $language; ?>" name="language" class="languages custom-radio" value="<?php echo $language; ?>" onclick="filter(this)" <?php if($selected_language == $language) echo 'checked'; ?>>
-                                                <label for="language_<?php echo $language; ?>"><?php echo ucfirst($language); ?></label>
-                                            </div>
-                                        </li>
-                                    <?php endforeach; ?>
-                                </ul>
-                            </div>
-                            <hr>
-                            <div class="filter_type">
-                                <h6><?php echo site_phrase('ratings'); ?></h6>
-                                <ul>
-                                    <li>
-                                        <div class="">
-                                            <input type="radio" id="all_rating" name="rating" class="ratings custom-radio" value="<?php echo 'all'; ?>" onclick="filter(this)" <?php if($selected_rating == "all") echo 'checked'; ?>>
-                                            <label for="all_rating"><?php echo site_phrase('all'); ?></label>
-                                        </div>
-                                    </li>
-                                    <?php for($i = 1; $i <= 5; $i++): ?>
-                                        <li>
-                                            <div class="">
-                                                <input type="radio" id="rating_<?php echo $i; ?>" name="rating" class="ratings custom-radio" value="<?php echo $i; ?>" onclick="filter(this)" <?php if($selected_rating == $i) echo 'checked'; ?>>
-                                                <label for="rating_<?php echo $i; ?>">
-                                                    <?php for($j = 1; $j <= $i; $j++): ?>
-                                                        <i class="fas fa-star" style="color: #f4c150;"></i>
-                                                    <?php endfor; ?>
-                                                    <?php for($j = $i; $j < 5; $j++): ?>
-                                                        <i class="far fa-star" style="color: #dedfe0;"></i>
-                                                    <?php endfor; ?>
-                                                </label>
-                                            </div>
-                                        </li>
+                                    $total_rating =  $this->crud_model->get_ratings('course', $course['id'], true)->row()->rating;
+                                    $number_of_ratings = $this->crud_model->get_ratings('course', $course['id'])->num_rows();
+                                    if ($number_of_ratings > 0) {
+                                        $average_ceil_rating = ceil($total_rating / $number_of_ratings);
+                                    } else {
+                                        $average_ceil_rating = 0;
+                                    }
+
+                                    for ($i = 1; $i < 6; $i++) : ?>
+                                        <?php if ($i <= $average_ceil_rating) : ?>
+                                            <a href="#" class="rating-link active"><i class="material-icons icon-16pt">star</i></a>
+                                        <?php else : ?>
+                                            <a href="#" class="rating-link active"><i class="material-icons icon-16pt">star_half</i></a>
+                                        <?php endif; ?>
                                     <?php endfor; ?>
-                                </ul>
+                                </span>
+                                <strong><?php echo $average_ceil_rating; ?></strong><br />
+                                <small class="text-muted">(<?php echo $number_of_ratings; ?>)</small>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <?php if ($course['is_free_course'] == 1) : ?>
+                                    <strong class="h4 m-0"><?php echo site_phrase('free'); ?></strong>
+                                <?php else : ?>
+                                    <?php if ($course['discount_flag'] == 1) : ?>
+                                        <strong class="h4 m-0"><small><?php echo currency($course['price']); ?></small><?php echo currency($course['discounted_price']); ?></strong>
+                                    <?php else : ?>
+                                        <strong class="h4 m-0"><?php echo currency($course['price']); ?></strong>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                                <button onclick="handleCartItems(this)" class="btn btn-primary ml-auto"><i class="material-icons">add_shopping_cart</i></button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-9">
-                <div class="category-course-list">
-                    <?php include 'category_wise_course_'.$layout.'_layout.php'; ?>
-                    <?php if (count($courses) == 0): ?>
-                        <?php echo site_phrase('no_result_found'); ?>
-                    <?php endif; ?>
-                </div>
-                <nav>
-                    <?php if ($selected_category_id == "all" && $selected_price == 0 && $selected_level == 'all' && $selected_language == 'all' && $selected_rating == 'all'){
-                        echo $this->pagination->create_links();
-                    }?>
-                </nav>
-            </div>
+            <?php endforeach; ?>
+
         </div>
+        <?php if (count($courses) == 0) : ?>
+            <h2><?php echo site_phrase('no_result_found'); ?></h2>
+        <?php endif; ?>
+        <hr>
+        <nav>
+            <?php if ($selected_category_id == "all" && $selected_price == 0 && $selected_level == 'all' && $selected_language == 'all' && $selected_rating == 'all') {
+                echo $this->pagination->create_links();
+            } ?>
+        </nav>
     </div>
-</section>
+</div>
 
 <script type="text/javascript">
+    function get_url() {
+        var urlPrefix = '<?php echo site_url('home/courses?'); ?>'
+        var urlSuffix = "";
+        var slectedCategory = "";
 
-function get_url() {
-    var urlPrefix 	= '<?php echo site_url('home/courses?'); ?>'
-    var urlSuffix = "";
-    var slectedCategory = "";
-    var selectedPrice = "";
-    var selectedLevel = "";
-    var selectedLanguage = "";
-    var selectedRating = "";
+        slectedCategory = $('#filter-category option:selected').val();
 
-    // Get selected category
-    $('.categories:checked').each(function() {
-        slectedCategory = $(this).attr('value');
-    });
+        urlSuffix = "category=" + slectedCategory;
+        var url = urlPrefix + urlSuffix;
+        return url;
+    }
 
-    // Get selected price
-    $('.prices:checked').each(function() {
-        selectedPrice = $(this).attr('value');
-    });
+    function filter() {
+        var url = get_url();
+        window.location.replace(url);
+        //console.log(url);
+    }
 
-    // Get selected difficulty Level
-    $('.level:checked').each(function() {
-        selectedLevel = $(this).attr('value');
-    });
+    function toggleLayout(layout) {
+        $.ajax({
+            type: 'POST',
+            url: '<?php echo site_url('home/set_layout_to_session'); ?>',
+            data: {
+                layout: layout
+            },
+            success: function(response) {
+                location.reload();
+            }
+        });
+    }
 
-    // Get selected difficulty Level
-    $('.languages:checked').each(function() {
-        selectedLanguage = $(this).attr('value');
-    });
-
-    // Get selected rating
-    $('.ratings:checked').each(function() {
-        selectedRating = $(this).attr('value');
-    });
-
-    urlSuffix = "category="+slectedCategory+"&&price="+selectedPrice+"&&level="+selectedLevel+"&&language="+selectedLanguage+"&&rating="+selectedRating;
-    var url = urlPrefix+urlSuffix;
-    return url;
-}
-function filter() {
-    var url = get_url();
-    window.location.replace(url);
-    //console.log(url);
-}
-
-function toggleLayout(layout) {
-    $.ajax({
-        type : 'POST',
-        url : '<?php echo site_url('home/set_layout_to_session'); ?>',
-        data : {layout : layout},
-        success : function(response){
-            location.reload();
+    function showToggle(elem, selector) {
+        $('.' + selector).slideToggle(20);
+        if ($(elem).text() === "<?php echo site_phrase('show_more'); ?>") {
+            $(elem).text('<?php echo site_phrase('show_less'); ?>');
+        } else {
+            $(elem).text('<?php echo site_phrase('show_more'); ?>');
         }
-    });
-}
-
-function showToggle(elem, selector) {
-    $('.'+selector).slideToggle(20);
-    if($(elem).text() === "<?php echo site_phrase('show_more'); ?>")
-    {
-        $(elem).text('<?php echo site_phrase('show_less'); ?>');
     }
-    else
-    {
-        $(elem).text('<?php echo site_phrase('show_more'); ?>');
-    }
-}
 </script>
