@@ -1,33 +1,77 @@
-<script src="<?php echo base_url().'assets/frontend/default/js/vendor/modernizr-3.5.0.min.js'; ?>"></script>
-<script src="<?php echo base_url().'assets/frontend/default/js/vendor/jquery-3.2.1.min.js'; ?>"></script>
-<script src="<?php echo base_url().'assets/frontend/default/js/popper.min.js'; ?>"></script>
-<script src="<?php echo base_url().'assets/frontend/default/js/bootstrap.min.js'; ?>"></script>
-<script src="<?php echo base_url().'assets/frontend/default/js/slick.min.js'; ?>"></script>
-<script src="<?php echo base_url().'assets/frontend/default/js/select2.min.js'; ?>"></script>
-<script src="<?php echo base_url().'assets/frontend/default/js/tinymce.min.js'; ?>"></script>
-<script src="<?php echo base_url().'assets/frontend/default/js/multi-step-modal.js'; ?>"></script>
-<script src="<?php echo base_url().'assets/frontend/default/js/jquery.webui-popover.min.js'; ?>"></script>
-<script src="https://content.jwplatform.com/libraries/O7BMTay5.js"></script>
-<script src="<?php echo base_url().'assets/frontend/default/js/main.js'; ?>"></script>
-<script src="<?php echo base_url().'assets/global/toastr/toastr.min.js'; ?>"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/nestable2/1.6.0/jquery.nestable.min.js" charset="utf-8"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script>
-<script src="<?php echo base_url().'assets/frontend/default/js/bootstrap-tagsinput.min.js'; ?>"></script>
-<script src="<?php echo base_url().'assets/frontend/default/js/custom.js'; ?>"></script>
+<!-- jQuery -->
+<script src="<?php echo base_url() . 'assets/frontend/default/assets/vendor/jquery.min.js'; ?>"></script>
+
+<!-- Bootstrap -->
+<script src="<?php echo base_url() . 'assets/frontend/default/assets/vendor/popper.min.js'; ?>"></script>
+<script src="<?php echo base_url() . 'assets/frontend/default/assets/vendor/bootstrap.min.js'; ?>"></script>
+
+<!-- Perfect Scrollbar -->
+<script src="<?php echo base_url() . 'assets/frontend/default/assets/vendor/perfect-scrollbar.min.js'; ?>"></script>
+
+<!-- DOM Factory -->
+<script src="<?php echo base_url() . 'assets/frontend/default/assets/vendor/dom-factory.js'; ?>"></script>
+
+<!-- MDK -->
+<script src="<?php echo base_url() . 'assets/frontend/default/assets/vendor/material-design-kit.js'; ?>"></script>
+
+<!-- Range Slider -->
+<script src="<?php echo base_url() . 'assets/frontend/default/assets/vendor/ion.rangeSlider.min.js'; ?>"></script>
+<script src="<?php echo base_url() . 'assets/frontend/default/assets/js/ion-rangeslider.js'; ?>"></script>
+
+<!-- App -->
+<script src="<?php echo base_url() . 'assets/frontend/default/assets/js/toggle-check-all.js'; ?>"></script>
+<script src="<?php echo base_url() . 'assets/frontend/default/assets/js/check-selected-row.js'; ?>"></script>
+<script src="<?php echo base_url() . 'assets/frontend/default/assets/js/dropdown.js'; ?>"></script>
+<script src="<?php echo base_url() . 'assets/frontend/default/assets/js/sidebar-mini.js'; ?>"></script>
+<script src="<?php echo base_url() . 'assets/frontend/default/assets/js/app.js'; ?>"></script>
+
+<!-- App Settings (safe to remove) -->
+
+
+<!-- Flatpickr -->
+<script src="<?php echo base_url() . 'assets/frontend/default/assets/vendor/flatpickr/flatpickr.min.js'; ?>"></script>
+<script src="<?php echo base_url() . 'assets/frontend/default/assets/js/flatpickr.js'; ?>"></script>
+
+<!-- Global Settings -->
+<script src="<?php echo base_url() . 'assets/frontend/default/assets/js/settings.js'; ?>"></script>
+
+<!-- Moment.js -->
+<script src="<?php echo base_url() . 'assets/frontend/default/assets/vendor/moment.min.js'; ?>"></script>
+<script src="<?php echo base_url() . 'assets/frontend/default/assets/vendor/moment-range.js'; ?>"></script>
+
+
+<!-- Chart.js -->
+<script src="<?php echo base_url() . 'assets/frontend/default/assets/vendor/Chart.min.js'; ?>"></script>
+
+<!-- App Charts JS -->
+<script src="<?php echo base_url() . 'assets/frontend/default/assets/js/chartjs-rounded-bar.js'; ?>"></script>
+<script src="<?php echo base_url() . 'assets/frontend/default/assets/js/charts.js'; ?>"></script>
+
+<!-- Chart Samples -->
+<script src="<?php echo base_url() . 'assets/frontend/default/assets/js/page.analytics.js'; ?>"></script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('ul.tree').hide();
+		$('.tree-toggler').click(function() {
+			$(this).parent().children('ul.tree').toggle(300);
+		});
+	});
+</script>
 
 <!-- SHOW TOASTR NOTIFIVATION -->
-<?php if ($this->session->flashdata('flash_message') != ""):?>
+<?php if ($this->session->flashdata('flash_message') != "") : ?>
 
-<script type="text/javascript">
-	toastr.success('<?php echo $this->session->flashdata("flash_message");?>');
-</script>
+	<script type="text/javascript">
+		toastr.success('<?php echo $this->session->flashdata("flash_message"); ?>');
+	</script>
 
-<?php endif;?>
+<?php endif; ?>
 
-<?php if ($this->session->flashdata('error_message') != ""):?>
+<?php if ($this->session->flashdata('error_message') != "") : ?>
 
-<script type="text/javascript">
-	toastr.error('<?php echo $this->session->flashdata("error_message");?>');
-</script>
+	<script type="text/javascript">
+		toastr.error('<?php echo $this->session->flashdata("error_message"); ?>');
+	</script>
 
-<?php endif;?>
+<?php endif; ?>
