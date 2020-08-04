@@ -602,5 +602,8 @@
     "add_course": "Add course",
     "course_adding_form": "Course adding form",
     "category_name_already_exists": "Category name already exists",
-    "course_has_been_added_successfully": "Course has been added successfully"
+    "course_has_been_added_successfully": "Course has been added successfully",
+    "edit_category": "Edit category",
+    "update_category": "Update category",
+    "update_category_form": "Update category form"
 }

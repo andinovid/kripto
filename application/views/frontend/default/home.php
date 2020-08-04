@@ -2,7 +2,7 @@
     <div class="container-fluid page__container">
         <div class="card">
             <div class="card-header card-header-large bg-white">
-                <h1 class="card-header__title">Selamat Datang!</h1>
+                <h1 class="card-header__title"><?php echo site_phrase('top_courses'); ?></h1>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -11,27 +11,46 @@
                     foreach ($top_courses as $top_course) : ?>
                         <div class="col-md-3">
                             <div class="card card__course">
-                                <div class="card-header card-header-large card-header-dark bg-dark d-flex justify-content-center">
-                                    <a class="card-header__title  justify-content-center align-self-center d-flex flex-column" href="<?php echo site_url('home/course/' . rawurlencode(slugify($top_course['title'])) . '/' . $top_course['id']); ?>">
-                                        <span><img src="<?php echo $this->crud_model->get_course_thumbnail_url($top_course['id']); ?>" class="mb-1" style="width:34px;" alt="logo"></span>
-                                        <span class="course__title"><?php echo $top_course['title']; ?></span>
+                                <div class="card-header card-header-large card-header-dark bg-dark d-flex justify-content-center p-0">
+                                    <a class="d-block" href="<?php echo site_url('home/course/' . rawurlencode(slugify($top_course['title'])) . '/' . $top_course['id']); ?>" style="background-image:url('<?php echo $this->crud_model->get_course_thumbnail_url($top_course['id']); ?>'); background-size:cover; width:100%; height:100%;">
                                     </a>
                                 </div>
                                 <div class="p-3">
                                     <div class="mb-2">
-                                        <p><?php echo $top_course['short_description']; ?></p>
+                                        <a class="card-header__title list-course-title" title="<?php echo $top_course['title']; ?>" href="<?php echo site_url('home/course/' . rawurlencode(slugify($top_course['title'])) . '/' . $top_course['id']); ?>">
+                                            <?php echo $top_course['title']; ?>
+                                        </a>
                                         <span class="mr-2">
-                                            <a href="#" class="rating-link active"><i class="material-icons icon-16pt">star</i></a>
-                                            <a href="#" class="rating-link active"><i class="material-icons icon-16pt">star</i></a>
-                                            <a href="#" class="rating-link active"><i class="material-icons icon-16pt">star</i></a>
-                                            <a href="#" class="rating-link active"><i class="material-icons icon-16pt">star</i></a>
-                                            <a href="#" class="rating-link active"><i class="material-icons icon-16pt">star_half</i></a>
+                                            <?php
+                                            $total_rating =  $this->crud_model->get_ratings('course', $top_course['id'], true)->row()->rating;
+                                            $number_of_ratings = $this->crud_model->get_ratings('course', $top_course['id'])->num_rows();
+                                            if ($number_of_ratings > 0) {
+                                                $average_ceil_rating = ceil($total_rating / $number_of_ratings);
+                                            } else {
+                                                $average_ceil_rating = 0;
+                                            }
+
+                                            for ($i = 1; $i < 6; $i++) : ?>
+                                                <?php if ($i <= $average_ceil_rating) : ?>
+                                                    <a href="#" class="rating-link active"><i class="material-icons icon-16pt">star</i></a>
+                                                <?php else : ?>
+                                                    <a href="#" class="rating-link active"><i class="material-icons icon-16pt">star_half</i></a>
+                                                <?php endif; ?>
+                                            <?php endfor; ?>
                                         </span>
-                                        <strong>4.7</strong><br />
-                                        <small class="text-muted">(391 ratings)</small>
+                                        <strong><?php echo $average_ceil_rating; ?></strong><br />
+                                        <small class="text-muted">(<?php echo $number_of_ratings; ?>)</small>
                                     </div>
                                     <div class="d-flex align-items-center">
-                                        <strong class="h4 m-0">$49</strong>
+                                        <?php if ($top_course['is_free_course'] == 1) : ?>
+                                            <strong class="h4 m-0"><?php echo site_phrase('free'); ?></strong>
+                                        <?php else : ?>
+                                            <?php if ($top_course['discount_flag'] == 1) : ?>
+                                                <strong class="h4 m-0"><small><?php echo currency($top_course['price']); ?></small><?php echo currency($top_course['discounted_price']); ?></strong>
+                                            <?php else : ?>
+                                                <strong class="h4 m-0"><?php echo currency($top_course['price']); ?></strong>
+                                            <?php endif; ?>
+                                        <?php endif; ?>
                                         <button onclick="handleCartItems(this)" class="btn btn-primary ml-auto"><i class="material-icons">add_shopping_cart</i></button>
                                     </div>
                                 </div>
@@ -54,8 +73,13 @@
                         <div class="card card-group-row__card">
                             <div class="card-body-x-lg card-body d-flex flex-row align-items-center">
                                 <div class="flex">
-                                    <div class="card-header__title text-muted mb-2 d-flex">Kelas Business</div>
-                                    <span class="h4 m-0">750 Kelas </span>
+                                    <div class="card-header__title text-muted mb-2 d-flex">
+                                        <?php
+                                        $status_wise_courses = $this->crud_model->get_status_wise_courses();
+                                        $number_of_courses = $status_wise_courses['active']->num_rows();
+                                        echo $number_of_courses . ' ' . site_phrase('online_courses'); ?>
+                                    </div>
+                                    <span class="h4 m-0"><?php echo site_phrase('explore_a_variety_of_fresh_topics'); ?></span>
                                 </div>
                                 <div><i class="material-icons icon-muted icon-40pt ml-3">gps_fixed</i></div>
                             </div>
@@ -68,8 +92,8 @@
                         <div class="card card-group-row__card">
                             <div class="card-body-x-lg card-body d-flex flex-row align-items-center">
                                 <div class="flex">
-                                    <div class="card-header__title text-muted d-flex mb-2">Kelas Development</div>
-                                    <span class="h4 m-0">320 Kelas</span>
+                                    <div class="card-header__title text-muted mb-2 d-flex"><?php echo site_phrase('expert_instruction'); ?></div>
+                                    <span class="h4 m-0"><?php echo site_phrase('find_the_right_course_for_you'); ?></span>
                                 </div>
                                 <div><i class="material-icons icon-muted icon-40pt ml-3">gps_fixed</i></div>
                             </div>
@@ -82,8 +106,8 @@
                         <div class="card card-group-row__card">
                             <div class="card-body-x-lg card-body d-flex flex-row align-items-center">
                                 <div class="flex">
-                                    <div class="card-header__title text-muted d-flex mb-2">Kelas Marketing</div>
-                                    <span class="h4 m-0">620 Kelas</span>
+                                    <div class="card-header__title text-muted d-flex mb-2"><?php echo site_phrase('lifetime_access'); ?></div>
+                                    <span class="h4 m-0"><?php echo site_phrase('learn_on_your_schedule'); ?></span>
                                 </div>
                                 <div><i class="material-icons icon-muted icon-40pt ml-3">gps_fixed</i></div>
                             </div>
@@ -95,7 +119,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <div class="card">
                             <div class="card-header card-header-large bg-light d-flex align-items-center">
                                 <div class="flex">
@@ -109,184 +133,61 @@
 
                             <div class="card-body">
 
-                                <div class="chart" style="height: 295px;">
-                                    <div class="row">
-                                        <div class="col-md-4">
+                                <div class="row">
+                                    <?php $top_courses = $this->crud_model->get_free_courses()->result_array();
+                                    $cart_items = $this->session->userdata('cart_items');
+                                    foreach ($top_courses as $top_course) : ?>
+                                        <div class="col-md-3">
                                             <div class="card card__course">
-                                                <div class="card-header card-header-large card-header-dark bg-dark d-flex justify-content-center">
-                                                    <a class="card-header__title  justify-content-center align-self-center d-flex flex-column" href="#">
-                                                        <span><img src="assets/images/logos/react.svg" class="mb-1" style="width:34px;" alt="logo"></span>
-                                                        <span class="course__title">React</span>
-                                                        <span class="course__subtitle">Learn the Basics</span>
+                                                <div class="card-header card-header-large card-header-dark bg-dark d-flex justify-content-center p-0">
+                                                    <a class="d-block" href="<?php echo site_url('home/course/' . rawurlencode(slugify($top_course['title'])) . '/' . $top_course['id']); ?>" style="background-image:url('<?php echo $this->crud_model->get_course_thumbnail_url($top_course['id']); ?>'); background-size:cover; width:100%; height:100%;">
                                                     </a>
                                                 </div>
                                                 <div class="p-3">
                                                     <div class="mb-2">
+                                                        <a class="card-header__title list-course-title" title="<?php echo $top_course['title']; ?>" href="<?php echo site_url('home/course/' . rawurlencode(slugify($top_course['title'])) . '/' . $top_course['id']); ?>">
+                                                            <?php echo $top_course['title']; ?>
+                                                        </a>
                                                         <span class="mr-2">
-                                                            <a href="#" class="rating-link active"><i class="material-icons icon-16pt">star</i></a>
-                                                            <a href="#" class="rating-link active"><i class="material-icons icon-16pt">star</i></a>
-                                                            <a href="#" class="rating-link active"><i class="material-icons icon-16pt">star</i></a>
-                                                            <a href="#" class="rating-link active"><i class="material-icons icon-16pt">star</i></a>
-                                                            <a href="#" class="rating-link active"><i class="material-icons icon-16pt">star_half</i></a>
+                                                            <?php
+                                                            $total_rating =  $this->crud_model->get_ratings('course', $top_course['id'], true)->row()->rating;
+                                                            $number_of_ratings = $this->crud_model->get_ratings('course', $top_course['id'])->num_rows();
+                                                            if ($number_of_ratings > 0) {
+                                                                $average_ceil_rating = ceil($total_rating / $number_of_ratings);
+                                                            } else {
+                                                                $average_ceil_rating = 0;
+                                                            }
+
+                                                            for ($i = 1; $i < 6; $i++) : ?>
+                                                                <?php if ($i <= $average_ceil_rating) : ?>
+                                                                    <a href="#" class="rating-link active"><i class="material-icons icon-16pt">star</i></a>
+                                                                <?php else : ?>
+                                                                    <a href="#" class="rating-link active"><i class="material-icons icon-16pt">star_half</i></a>
+                                                                <?php endif; ?>
+                                                            <?php endfor; ?>
                                                         </span>
-                                                        <strong>4.7</strong><br />
-                                                        <small class="text-muted">(391 ratings)</small>
+                                                        <strong><?php echo $average_ceil_rating; ?></strong><br />
+                                                        <small class="text-muted">(<?php echo $number_of_ratings; ?>)</small>
                                                     </div>
                                                     <div class="d-flex align-items-center">
-                                                        <strong class="h4 m-0">Gratis</strong>
-                                                        <a href="#" class="btn btn-primary ml-auto"><i class="material-icons">add_shopping_cart</i></a>
+                                                        <?php if ($top_course['is_free_course'] == 1) : ?>
+                                                            <strong class="h4 m-0"><?php echo site_phrase('free'); ?></strong>
+                                                        <?php else : ?>
+                                                            <?php if ($top_course['discount_flag'] == 1) : ?>
+                                                                <strong class="h4 m-0"><small><?php echo currency($top_course['price']); ?></small><?php echo currency($top_course['discounted_price']); ?></strong>
+                                                            <?php else : ?>
+                                                                <strong class="h4 m-0"><?php echo currency($top_course['price']); ?></strong>
+                                                            <?php endif; ?>
+                                                        <?php endif; ?>
+                                                        <button onclick="handleCartItems(this)" class="btn btn-primary ml-auto"><i class="material-icons">add_shopping_cart</i></button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div class="col-md-4">
-                                            <div class="card card__course">
-                                                <div class="card-header card-header-large card-header-dark bg-dark d-flex justify-content-center">
-                                                    <a class="card-header__title  justify-content-center align-self-center d-flex flex-column" href="#">
-                                                        <span><img src="assets/images/logos/vuejs.svg" class="mb-1" style="width:34px;" alt="logo"></span>
-                                                        <span class="course__title">Vue.js</span>
-                                                        <span class="course__subtitle">Quick Tips</span>
-                                                    </a>
-                                                </div>
-                                                <div class="p-3">
-                                                    <div class="mb-2">
-                                                        <span class="mr-2">
-                                                            <a href="#" class="rating-link active"><i class="material-icons icon-16pt">star</i></a>
-                                                            <a href="#" class="rating-link active"><i class="material-icons icon-16pt">star</i></a>
-                                                            <a href="#" class="rating-link active"><i class="material-icons icon-16pt">star</i></a>
-                                                            <a href="#" class="rating-link active"><i class="material-icons icon-16pt">star</i></a>
-                                                            <a href="#" class="rating-link active"><i class="material-icons icon-16pt">star_half</i></a>
-                                                        </span>
-                                                        <strong>4.7</strong><br />
-                                                        <small class="text-muted">(391 ratings)</small>
-                                                    </div>
-                                                    <div class="d-flex align-items-center">
-                                                        <strong class="h4 m-0">Gratis</strong>
-                                                        <a href="#" class="btn btn-primary ml-auto"><i class="material-icons">add_shopping_cart</i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-4">
-                                            <div class="card card__course">
-                                                <div class="card-header card-header-large card-header-dark bg-dark d-flex justify-content-center">
-                                                    <a class="card-header__title  justify-content-center align-self-center d-flex flex-column" href="#">
-                                                        <span><img src="assets/images/logos/angular.svg" class="mb-1" style="width:34px;" alt="logo"></span>
-                                                        <span class="course__title">Angular</span>
-                                                        <span class="course__subtitle">Back to Basics</span>
-                                                    </a>
-                                                </div>
-                                                <div class="p-3">
-                                                    <div class="mb-2">
-                                                        <span class="mr-2">
-                                                            <a href="#" class="rating-link active"><i class="material-icons icon-16pt">star</i></a>
-                                                            <a href="#" class="rating-link active"><i class="material-icons icon-16pt">star</i></a>
-                                                            <a href="#" class="rating-link active"><i class="material-icons icon-16pt">star</i></a>
-                                                            <a href="#" class="rating-link active"><i class="material-icons icon-16pt">star</i></a>
-                                                            <a href="#" class="rating-link active"><i class="material-icons icon-16pt">star_half</i></a>
-                                                        </span>
-                                                        <strong>4.7</strong><br />
-                                                        <small class="text-muted">(391 ratings)</small>
-                                                    </div>
-                                                    <div class="d-flex align-items-center">
-                                                        <strong class="h4 m-0">Gratis</strong>
-                                                        <a href="#" class="btn btn-primary ml-auto"><i class="material-icons">add_shopping_cart</i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
+                                    <?php endforeach; ?>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-
-                        <div class="card">
-                            <div class="card-header card-header-large bg-light d-flex align-items-center">
-                                <div class="flex">
-                                    <h4 class="card-header__title">Rankings</h4>
-                                    <div class="card-subtitle text-muted">Current Month Earnings</div>
-                                </div>
-
-                                <div class="dropdown ml-auto">
-                                    <a href="#" class="dropdown-toggle text-muted" data-caret="false" data-toggle="dropdown">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="#">Go to Report</a>
-                                        <a class="dropdown-item" href="#">Other Statistics</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item text-danger" href="#">Archive</a>
-                                    </div>
-                                </div>
-
-                            </div>
-
-
-                            <ul class="list-group list-rankings">
-
-                                <li class="list-group-item">
-                                    <div class="media align-items-center">
-                                        <span class="mr-2">1.</span>
-                                        <img src="assets/images/256_daniel-gaffey-1060698-unsplash.jpg" class="img-fluid rounded-circle mr-2" width="30" alt="...">
-                                        <div class="media-body">
-                                            <a href="#">Tara Knows</a>
-                                        </div>
-                                        <div>&dollar;29,021</div>
-                                    </div>
-                                </li>
-
-                                <li class="list-group-item">
-                                    <div class="media align-items-center">
-                                        <span class="mr-2">2.</span>
-                                        <img src="assets/images/256_jeremy-banks-798787-unsplash.jpg" class="img-fluid rounded-circle mr-2" width="30" alt="...">
-                                        <div class="media-body">
-                                            <a href="#">Karen Smith</a>
-                                        </div>
-                                        <div>&dollar;25,250</div>
-                                    </div>
-                                </li>
-
-                                <li class="list-group-item">
-                                    <div class="media align-items-center">
-                                        <span class="mr-2">3.</span>
-                                        <img src="assets/images/256_michael-dam-258165-unsplash.jpg" class="img-fluid rounded-circle mr-2" width="30" alt="...">
-                                        <div class="media-body">
-                                            <a href="#">Mark Ups</a>
-                                        </div>
-                                        <div>&dollar;21,330</div>
-                                    </div>
-                                </li>
-
-                                <li class="list-group-item">
-                                    <div class="media align-items-center">
-                                        <span class="mr-2">4.</span>
-                                        <img src="assets/images/256_s-a-r-a-h-s-h-a-r-p-764291-unsplash.jpg" class="img-fluid rounded-circle mr-2" width="30" alt="...">
-                                        <div class="media-body">
-                                            <a href="#">Steven Short</a>
-                                        </div>
-                                        <div>&dollar;17,740</div>
-                                    </div>
-                                </li>
-
-                                <li class="list-group-item">
-                                    <div class="media align-items-center">
-                                        <span class="mr-2">5.</span>
-                                        <img src="assets/images/256_luke-porter-261779-unsplash.jpg" class="img-fluid rounded-circle mr-2" width="30" alt="...">
-                                        <div class="media-body">
-                                            <a href="#">John Mix</a>
-                                        </div>
-                                        <div>&dollar;13,120</div>
-                                    </div>
-                                </li>
-
-                            </ul>
-
                         </div>
                     </div>
                 </div>

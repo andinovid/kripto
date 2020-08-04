@@ -11,45 +11,48 @@
             <div class="sidebar-block p-0 mt-3">
                 <ul class="sidebar-menu mt-0">
                     <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button active" href="index.html">
+                        <a class="sidebar-menu-button active" href="<?php echo site_url(); ?>">
                             <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">home</i>
                             <span class="sidebar-menu-text">Home</span>
                         </a>
                     </li>
                     <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="explore.html">
+                        <a class="sidebar-menu-button" href="<?php echo site_url('home/courses'); ?>">
                             <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">search</i>
                             <span class="sidebar-menu-text">Explore</span>
                         </a>
                     </li>
                     <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button tree-toggler" href="#">
+                        <a class="sidebar-menu-button tree-toggler" href="<?php echo site_url('home/courses?category=business-courses'); ?>">
                             <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">card_travel</i>
                             <span class="sidebar-menu-text">Business</span>
                         </a>
+                        <!--
                         <ul class="nav nav-list tree">
                             <li><a href="#">Link</a></li>
                             <li><a href="#">Link</a></li>
-                        </ul>
+                        </ul>-->
                     </li>
                     <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button tree-toggler" href="#">
+                        <a class="sidebar-menu-button tree-toggler" href="<?php echo site_url('home/courses?category=developmet-courses'); ?>">
                             <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">supervisor_account</i>
                             <span class="sidebar-menu-text">Development</span>
                         </a>
+                        <!--
                         <ul class="nav nav-list tree">
                             <li><a href="#">Link</a></li>
                             <li><a href="#">Link</a></li>
                         </ul>
+                        </ul>-->
                     </li>
                     <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="information-technology.html">
+                        <a class="sidebar-menu-button" href="<?php echo site_url('home/courses?category=information-technology-courses'); ?>">
                             <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">important_devices</i>
                             <span class="sidebar-menu-text">Information Technology</span>
                         </a>
                     </li>
                     <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="photography.html">
+                        <a class="sidebar-menu-button" href="<?php echo site_url('home/courses?category=photography-courses'); ?>">
                             <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">monochrome_photos</i>
                             <span class="sidebar-menu-text">Photography</span>
                         </a>
