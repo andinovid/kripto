@@ -10,25 +10,11 @@
             <li class="nav-item dropdown">
               <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pilih Kategori</a>
               <div class="dropdown-menu">
-                <a class="dropdown-item" href="ui-buttons.html">Buttons</a>
-                <a class="dropdown-item" href="ui-alerts.html">Alerts</a>
-                <a class="dropdown-item" href="ui-avatars.html">Avatars</a>
-                <a class="dropdown-item" href="ui-modals.html">Modals</a>
-                <a class="dropdown-item" href="ui-icons.html">Icons</a>
-                <a class="dropdown-item" href="ui-range-sliders.html">Range Sliders</a>
-                <a class="dropdown-item" href="ui-datetime.html">Time &amp; Date</a>
-                <a class="dropdown-item" href="ui-tables.html">Tables</a>
-                <a class="dropdown-item" href="ui-loaders.html">Loaders</a>
-                <a class="dropdown-item" href="ui-drag.html">Drag &amp; Drop</a>
-                <a class="dropdown-item" href="ui-pagination.html">Pagination</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="ui-forms.html">Forms</a>
-                <a class="dropdown-item" href="ui-charts.html">Charts</a>
-                <div class="dropdown-divider"></div>
-                <div class="dropdown-header">Extras</div>
-                <a class="dropdown-item" href="fullcalendar.html">Calendar</a>
-                <a class="dropdown-item" href="ui-vector-maps.html">Vector Maps</a>
-
+                <?php
+                $categories = $this->crud_model->get_categories()->result_array();
+                foreach ($categories as $key => $category) : ?>
+                  <a class="dropdown-item" href="<?php echo site_url('home/courses?category=' . $category['slug']); ?>"><?php echo $category['name']; ?></a>
+                <?php endforeach; ?>
               </div>
             </li>
             <li>
@@ -39,9 +25,6 @@
             <button class="btn" type="submit"><i class="material-icons">search</i></button>
           </form>
         </div>
-
-
-
         <div class="d-sm-flex" style="margin-right: 20px;">
           <div class="cart-box menu-icon-box" id="cart_items">
           </div>

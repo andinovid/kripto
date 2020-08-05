@@ -31,23 +31,13 @@
 	<?php include 'includes_top.php'; ?>
 
 </head>
+<?php if ($page_name == "login" || $page_name == "sign_up") { ?>
 
-<body class="layout-default">
-	<div class="mdk-drawer-layout js-mdk-drawer-layout" data-push data-responsive-width="992px" data-fullbleed>
-		<div class="mdk-drawer-layout__content">
-			<div class="mdk-header-layout js-mdk-header-layout" data-has-scrolling-region>
-				<?php
-				if ($this->session->userdata('user_login')) {
-					include 'logged_in_header.php';
-				} else {
-					include 'logged_out_header.php';
-				}
-				?>
+	<body class="layout-login-centered-boxed">
 
-				<?php include $page_name . '.php'; ?>
-			</div>
-		</div>
-		<?php include 'sidebar_nav.php'; ?>
+
+		<?php include $page_name . '.php'; ?>
+
 		<?php
 		if (get_frontend_settings('cookie_status') == 'active') :
 			include 'eu-cookie.php';
@@ -58,7 +48,41 @@
 		include 'modal.php';
 		include 'common_scripts.php';
 		?>
-	</div>
-</body>
+		</div>
+	</body>
+
+<?php } else { ?>
+
+	<body class="layout-default">
+		<div class="mdk-drawer-layout js-mdk-drawer-layout" data-push data-responsive-width="992px" data-fullbleed>
+			<div class="mdk-drawer-layout__content">
+				<div class="mdk-header-layout js-mdk-header-layout" data-has-scrolling-region>
+					<?php
+					if ($this->session->userdata('user_login') != true) {
+						include 'logged_out_header.php';
+					} else {
+						include 'logged_in_header.php';
+					}
+					?>
+
+					<?php include $page_name . '.php'; ?>
+				</div>
+			</div>
+			<?php
+			include 'sidebar_nav.php';
+			?>
+			<?php
+			if (get_frontend_settings('cookie_status') == 'active') :
+				include 'eu-cookie.php';
+			endif;
+
+			include 'footer.php';
+			include 'includes_bottom.php';
+			include 'modal.php';
+			include 'common_scripts.php';
+			?>
+		</div>
+	</body>
+<?php } ?>
 
 </html>
