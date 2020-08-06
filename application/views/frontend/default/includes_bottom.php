@@ -50,6 +50,25 @@
 <!-- Chart Samples -->
 <script src="<?php echo base_url() . 'assets/frontend/default/assets/js/page.analytics.js'; ?>"></script>
 
+<script src="<?php echo base_url() . 'assets/global/toastr/toastr.min.js'; ?>"></script>
+
+<!-- SHOW TOASTR NOTIFIVATION -->
+<?php if ($this->session->flashdata('flash_message') != "") : ?>
+
+	<script type="text/javascript">
+		toastr.success('<?php echo $this->session->flashdata("flash_message"); ?>');
+	</script>
+
+<?php endif; ?>
+
+<?php if ($this->session->flashdata('error_message') != "") : ?>
+
+	<script type="text/javascript">
+		toastr.error('<?php echo $this->session->flashdata("error_message"); ?>');
+	</script>
+
+<?php endif; ?>
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('ul.tree').hide();

@@ -606,5 +606,15 @@
     "edit_category": "Edit category",
     "update_category": "Update category",
     "update_category_form": "Update category form",
-    "logo_updated": "Logo updated"
+    "logo_updated": "Logo updated",
+    "invalid_login_credentials": "Invalid login credentials",
+    "verify_email_address": "Verify email address",
+    "your_registration_has_been_successfully_done": "Your registration has been successfully done",
+    "please_check_your_mail_inbox_to_verify_your_email_address": "Please check your mail inbox to verify your email address",
+    "unverified": "Unverified",
+    "student_edit": "Student edit",
+    "student_edit_form": "Student edit form",
+    "no_secret_key_found": "No secret key found",
+    "student_add": "Student add",
+    "student_add_form": "Student add form"
 }

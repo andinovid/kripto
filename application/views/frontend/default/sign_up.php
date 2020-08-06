@@ -35,7 +35,7 @@
                 <div class="form-group">
                     <label class="text-label" for="email_2">Email Address:</label>
                     <div class="input-group input-group-merge">
-                        <input id="email_2" type="email" required="" class="form-control form-control-prepended" placeholder="john@doe.com">
+                        <input type="email" class="form-control" name="email" id="login-email" placeholder="<?php echo site_phrase('email'); ?>" value="" required>
                         <div class="input-group-prepend">
                             <div class="input-group-text">
                                 <span class="far fa-envelope"></span>
@@ -46,7 +46,7 @@
                 <div class="form-group">
                     <label class="text-label" for="password_2">Password:</label>
                     <div class="input-group input-group-merge">
-                        <input id="password_2" type="password" required="" class="form-control form-control-prepended" placeholder="Enter your password">
+                        <input type="password" class="form-control" name="password" placeholder="<?php echo site_phrase('password'); ?>" value="" required>
                         <div class="input-group-prepend">
                             <div class="input-group-text">
                                 <span class="fa fa-key"></span>

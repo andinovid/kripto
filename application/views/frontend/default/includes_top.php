@@ -21,3 +21,4 @@
 
 <!-- Vector Maps -->
 <link type="text/css" href="<?php echo base_url() . 'assets/frontend/default/assets/vendor/jqvmap/jqvmap.min.css'; ?>" rel="stylesheet">
+<link rel="stylesheet" href="<?php echo base_url() . 'assets/global/toastr/toastr.css' ?>">
