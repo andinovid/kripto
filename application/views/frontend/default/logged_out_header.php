@@ -28,7 +28,7 @@
         <div class="d-sm-flex" style="margin-right: 20px;">
           <div class="cart-box menu-icon-box" id="cart_items">
           </div>
-          <button class="btn btn-purple"><i class="material-icons icon-16pt">launch</i>Buka Kelas</button>
+          <a href="<?php echo site_url('user'); ?>" class="btn btn-purple"><i class="material-icons icon-16pt">launch</i>Buka Kelas</a>
           <a href="<?php echo site_url('home/login'); ?>" class="btn btn-light ml-2"><i class="material-icons icon-16pt">person</i> Login</a>
           <a href="<?php echo site_url('home/sign_up'); ?>" class="btn btn-link">Register</a>
         </div>

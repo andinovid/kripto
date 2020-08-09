@@ -65,24 +65,29 @@
             <div class="sidebar-block p-0">
                 <ul class="sidebar-menu mt-0">
                     <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="#">
-                            <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">live_help</i>
-                            <span class="sidebar-menu-text">Help</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="#">
-                            <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">verified_user</i>
+                        <a class="sidebar-menu-button" href="<?php echo site_url('home/about_us'); ?>">
+                            <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">info</i>
                             <span class="sidebar-menu-text">Tentang Kami</span>
                         </a>
                     </li>
-                    <li class="sidebar-menu-item">
+                    <!--<li class="sidebar-menu-item">
                         <a class="sidebar-menu-button" href="#">
                             <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">group</i>
                             <span class="sidebar-menu-text">Kemitraan</span>
                         </a>
+                    </li>-->
+                    <li class="sidebar-menu-item">
+                        <a class="sidebar-menu-button" href="<?php echo site_url('home/privacy_policy'); ?>">
+                            <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">verified_user</i>
+                            <span class="sidebar-menu-text">Privacy Policy</span>
+                        </a>
                     </li>
-
+                    <li class="sidebar-menu-item">
+                        <a class="sidebar-menu-button" href="<?php echo site_url('home/terms_and_condition'); ?>">
+                            <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">subject</i>
+                            <span class="sidebar-menu-text">Term & Condition</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

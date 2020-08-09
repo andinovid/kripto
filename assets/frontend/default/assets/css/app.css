@@ -18216,6 +18216,233 @@ h6+[aria-label=breadcrumb],
     pointer-events: none;
 }
 
+.your-rating-box .your-rating-text {
+    margin-bottom: 0;
+    font-size: 13px;
+    color: #29303b;
+    margin-top: 2px;
+}
+
+.your-rating-box:hover .your-rating-text {
+    color: #ec5252;
+}
+
+.your-rating-box .your-rating-text .edit {
+    display: none;
+}
+
+.your-rating-box:hover .your-rating-text .edit {
+    display: unset;
+}
+
+.your-rating-box:hover .your-rating-text .your {
+    display: none;
+}
+
+.your-rating-box i {
+    color: transparent;
+    text-stroke: 1px #eaeaea;
+    -webkit-text-stroke: 1px #eaeaea;
+    font-size: 17px;
+    letter-spacing: -0.1em;
+}
+
+.your-rating-box i.filled {
+    color: #f4c150;
+}
+
+.course-details {
+    padding: 15px 10px 0px 15px;
+    position: relative;
+}
+
+.course-details .title {
+    display: block!important;
+    display: -webkit-box!important;
+    -webkit-line-clamp: 2;
+    -moz-line-clamp: 2;
+    -ms-line-clamp: 2;
+    -o-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    -ms-box-orient: vertical;
+    -o-box-orient: vertical;
+    box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    font-weight: 600;
+    height: 36px;
+    min-height: 42px;
+    font-size: 15px;
+    color: #29303b;
+    margin-bottom: 10px;
+    line-height: 20px;
+}
+
+.message-details-box {
+    height: 100%;
+    background: #fff;
+}
+
+.message-details-box .empty-box {
+    padding-top: 55px;
+}
+
+.message-details-box .message-details .message-header a {
+    display: block;
+}
+
+.message-details-box .message-details .message-header img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.message-details-box .message-details .message-header {
+    min-height: 65px;
+    padding: 10px;
+    border-bottom: 1px solid #dedfe0;
+}
+
+.message-details-box .message-details .message-footer {
+    padding: 10px;
+    border-top: 1px solid #dedfe0;
+    background: #fff;
+}
+
+.message-details-box .message-details .message-content {
+    background: #fff;
+    padding: 10px;
+    overflow: auto;
+    min-height: 200px;
+    height: calc(100vh - 460px);
+}
+
+.message-details-box .message-details .message-content .message-box {
+    max-width: 400px;
+    min-width: 190px;
+    padding: 15px;
+    border-radius: 2px;
+    margin-bottom: 10px;
+    background: #f2f3f5;
+    display: inline-block;
+}
+
+.message-details-box .message-details .message-content .message-box .message {
+    white-space: pre-wrap;
+    color: #505763;
+    font-size: 15px;
+    overflow-x: auto;
+}
+
+.message-details-box .message-details .message-content .message-box .time {
+    color: #686f7a;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.message-details-box .message-details .message-content .me .message-box {
+    background: rgba(230, 242, 245, .5);
+}
+
+.message-details-box .message-details .message-content .me {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.message-details-box .message-details .message-footer textarea {
+    border-radius: 2px;
+    min-height: 100px;
+}
+
+.message-details-box .message-details .message-footer textarea:focus {
+    border-color: #76c5d6;
+}
+
+.message-details-box .message-details .message-footer .send-btn {
+    color: #fff;
+    background-color: #ec5252;
+    border-color: #ec5252;
+    padding: 11px 12px;
+    font-size: 15px;
+    border-radius: 2px;
+    line-height: 1.35135;
+    margin-top: 15px;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+.message-details-box .message-details .message-footer .send-btn:hover,
+.message-details-box .message-details .message-footer .send-btn:focus {
+    background-color: #992337;
+    border-color: #992337;
+}
+
+.message-content {
+    background: #fff;
+    padding: 10px;
+    overflow: auto;
+    min-height: 200px;
+    height: calc(100vh - 460px);
+}
+
+.message-content .message-box {
+    max-width: 400px;
+    min-width: 190px;
+    padding: 15px;
+    border-radius: 2px;
+    margin-bottom: 10px;
+    background: #f2f3f5;
+    display: inline-block;
+}
+
+.message-content .message-box .message {
+    white-space: pre-wrap;
+    color: #505763;
+    font-size: 15px;
+    overflow-x: auto;
+}
+
+.message-content .message-box .time {
+    color: #686f7a;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.message-content .me .message-box {
+    background: rgba(230, 242, 245, .5);
+}
+
+.message-content .me {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.in-cart-box>.title,
+.wishlisted-box>.title {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #29303b;
+}
+
+.in-cart-box .cart-course-list,
+.wishlisted-box .cart-course-list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    -webkit-box-shadow: 0 0 2px #dedfe0;
+    box-shadow: 0 0 2px #dedfe0;
+    margin-bottom: 60px;
+}
+
+.in-cart-box .cart-course-list li:not( :first-child),
+.wishlisted-box .cart-course-list li:not( :first-child) {
+    border-top: 1px solid #f1f1f1;
+}
+
 
 /*-----------------------------------------------------------------*/
 

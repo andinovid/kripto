@@ -1,7 +1,7 @@
 <?php
 $total_price = 0;
 ?>
-<a href="#cart_dropdown" class="position-relative nav-link dropdown-toggle pb-0" data-toggle="dropdown" data-caret="false">
+<a href="javascript::" onclick="showCartPage()" class="position-relative nav-link dropdown-toggle pb-0" data-toggle="dropdown" data-caret="false">
 	<span class="material-icons nav-icon">shopping_cart</span>
 	<span class="number"><?php echo sizeof($this->session->userdata('cart_items')); ?></span>
 </a>
@@ -54,3 +54,9 @@ $total_price = 0;
 
 	</div>
 <?php } ?>
+
+<script type="text/javascript">
+	function showCartPage() {
+		window.location.replace("<?php echo site_url('home/shopping_cart'); ?>");
+	}
+</script>

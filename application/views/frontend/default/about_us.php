@@ -1,31 +1,15 @@
-<section class="category-header-area">
-    <div class="container-lg">
-        <div class="row">
-            <div class="col">
-                <nav>
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="<?php echo site_url('home'); ?>"><i class="fas fa-home"></i></a></li>
-                        <li class="breadcrumb-item">
-                            <a href="#">
-                                <?php echo $page_title;; ?>
-                            </a>
-                        </li>
-                    </ol>
-                </nav>
-                <h1 class="category-name">
-                    <?php echo $page_title; ?>
-                </h1>
-            </div>
-        </div>
-    </div>
-</section>
+<div class="mdk-header-layout__content mdk-header-layout__content--fullbleed mdk-header-layout__content--scrollable page" style="padding-top: 60px;">
 
-<section class="category-course-list-area">
-    <div class="container">
-        <div class="row">
-            <div class="col" style="padding: 35px;">
-                <?php echo get_frontend_settings('about_us'); ?>
-            </div>
+    <div class="page__heading border-bottom">
+        <div class="container-fluid page__container d-flex align-items-center">
+            <h1 class="mb-0">
+                <?php echo $page_title;; ?>
+            </h1>
         </div>
     </div>
-</section>
+
+
+    <div class="container-fluid page__container">
+        <?php echo get_frontend_settings('about_us'); ?>
+    </div>
+</div>

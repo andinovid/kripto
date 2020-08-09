@@ -40,7 +40,7 @@
                     </div>
 
                     <?php if (get_settings('allow_instructor') == 1) : ?>
-                        <a href="<?php echo site_url('user'); ?>" class="btn btn-light mr-2"><?php echo site_phrase('instructor'); ?></a>
+                        <a href="<?php echo site_url('user'); ?>" class="btn btn-purple mr-2">Buka Kelas</a>
                     <?php endif; ?>
                     <a href="<?php echo site_url('home/my_courses'); ?>" class="btn btn-light"><?php echo site_phrase('my_courses'); ?></a>
 

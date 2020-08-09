@@ -101,7 +101,6 @@ if (isset($sub_category_id)) {
                                         <strong class="h4 m-0"><?php echo currency($course['price']); ?></strong>
                                     <?php endif; ?>
                                 <?php endif; ?>
-                                <button onclick="handleCartItems(this)" class="btn btn-primary ml-auto"><i class="material-icons">add_shopping_cart</i></button>
                             </div>
                         </div>
                     </div>
