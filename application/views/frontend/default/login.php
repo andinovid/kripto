@@ -57,6 +57,13 @@
                 </div>
                 <div class="form-group">
                     <button class="btn btn-block btn-purple" type="submit">Login</button>
+                    <p class="text-center mt-3">Or login with:</p>
+                    <a href="<?= $google_login_url ?>" class="google-btn">
+                        <div class="google-icon-wrapper">
+                            <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
+                        </div>
+                        <p class="btn-text-google"><b>Sign in with google</b></p>
+                    </a>
                 </div>
                 <div class="form-group text-center">
                     <div class="custom-control custom-checkbox">
