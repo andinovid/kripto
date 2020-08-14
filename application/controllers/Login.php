@@ -192,14 +192,13 @@ class Login extends CI_Controller
 
         $session_data['first_name'] = $google_data['name'];
         $session_data['email'] = $google_data['email'];
-        $session_data['role_id'] = '2';
         $session_data['status'] = "1";
+        $session_data['provider'] = "google";
 
-        $userID = $this->user_model->cek_user_google($session_data);
+        $userID = $this->user_model->cek_user($session_data);
 
 
         $this->session->set_userdata('user_id', $userID);
-        $this->session->set_userdata('role_id', $userID->role_id);
         $this->session->set_userdata('role', get_user_role('user_role', $userID->id));
         $this->session->set_userdata('name', $userID->first_name . ' ' . $userID->last_name);
         $this->session->set_userdata('is_instructor', $userID->is_instructor);
@@ -208,7 +207,38 @@ class Login extends CI_Controller
         if ($row->role_id == 1) {
             $this->session->set_userdata('admin_login', '1');
             redirect(site_url('admin/dashboard'), 'refresh');
-        } else if ($row->role_id == 2) {
+        } else {
+            $this->session->set_userdata('user_login', '1');
+            redirect(site_url('home'), 'refresh');
+        }
+    }
+
+    public function login_fb()
+    {
+        if ($this->facebook->is_authenticated()) {
+            // Get user info from facebook 
+            $fbUser = $this->facebook->request('get', '/me?fields=id,first_name,last_name,email,link,gender,picture');
+
+
+            $session_data['first_name'] = $fbUser['first_name'];
+            $session_data['last_name'] = $fbUser['last_name'];
+            $session_data['email'] = $fbUser['email'];
+            $session_data['status'] = "1";
+            $session_data['provider'] = "facebook";
+
+            $userID = $this->user_model->cek_user($session_data);
+
+
+            $this->session->set_userdata('user_id', $userID);
+            $this->session->set_userdata('role', get_user_role('user_role', $userID->id));
+            $this->session->set_userdata('name', $userID->first_name . ' ' . $userID->last_name);
+            $this->session->set_userdata('is_instructor', $userID->is_instructor);
+            $this->session->set_flashdata('flash_message', get_phrase('welcome') . ' ' . $userID->first_name . ' ' . $userID->last_name);
+        }
+        if ($row->role_id == 1) {
+            $this->session->set_userdata('admin_login', '1');
+            redirect(site_url('admin/dashboard'), 'refresh');
+        } else {
             $this->session->set_userdata('user_login', '1');
             redirect(site_url('home'), 'refresh');
         }

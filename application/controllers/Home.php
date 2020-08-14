@@ -740,6 +740,7 @@ class Home extends CI_Controller
     {
 
         $this->load->library('google');
+        $this->load->library('facebook');
         if ($this->session->userdata('admin_login')) {
             redirect(site_url('admin'), 'refresh');
         } elseif ($this->session->userdata('user_login')) {
@@ -747,6 +748,7 @@ class Home extends CI_Controller
         }
 
         $page_data['google_login_url'] = $this->google->get_login_url();
+        $page_data['fb_login_url'] =  $this->facebook->login_url();
         $page_data['page_name'] = 'login';
         $page_data['page_title'] = site_phrase('login');
         $this->load->view('frontend/' . get_frontend_settings('theme') . '/index', $page_data);

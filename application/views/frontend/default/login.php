@@ -64,6 +64,7 @@
                         </div>
                         <p class="btn-text-google"><b>Sign in with google</b></p>
                     </a>
+                    <a href="<?php echo $fb_login_url; ?>" class="fb connect mt-3">Sign in with Facebook</a>
                 </div>
                 <div class="form-group text-center">
                     <div class="custom-control custom-checkbox">

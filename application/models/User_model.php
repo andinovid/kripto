@@ -382,7 +382,7 @@ class User_model extends CI_Model
     }
 
 
-    public function cek_user_google($data = array())
+    public function cek_user($data = array())
     {
         $this->db->select("*");
         $this->db->from("users");
@@ -395,14 +395,9 @@ class User_model extends CI_Model
         if ($check > 0) {
             // Ambil data sebelumnya
             $result = $query->row_array();
-            // Update data pengguna
-            $data['diupdate'] = date("Y-m-d H:i:s");
             $update = $this->db->update("users", $data, array('id' => $result['id']));
             $userID = $result['id'];
         } else {
-            // Insert data pengguna
-            $data['dibuat'] = date("Y-m-d H:i:s");
-            $data['diupdate'] = date("Y-m-d H:i:s");
             $insert = $this->db->insert("users", $data);
             $userID = $this->db->insert_id();
         }
