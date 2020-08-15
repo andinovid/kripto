@@ -18470,7 +18470,7 @@ Table of contents:
         background: #1669f2;
     }
     
-    a.fb {
+    .fb {
         display: inline-block;
         font-size: 14px;
         padding: 13px 30px 15px 44px;
@@ -18484,7 +18484,7 @@ Table of contents:
         width: 100%;
     }
     
-    a.fb:hover {
+    .fb:hover {
         box-shadow: 0 0 6px #4285f4;
     }
     
