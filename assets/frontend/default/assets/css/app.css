@@ -18486,6 +18486,8 @@ Table of contents:
     
     .fb:hover {
         box-shadow: 0 0 6px #4285f4;
+        color: #FFF !important;
+        text-decoration: none !important;
     }
     
     .connect:before {
