@@ -22,8 +22,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 */
 $config['facebook_app_id']                = '780304482800760';
 $config['facebook_app_secret']            = 'cfe46767f180309702552ffb5bdb3ad2';
-$config['facebook_login_redirect_url']    = 'http://localhost/kripto/home/login';
-$config['facebook_logout_redirect_url']   = 'http://localhost/kripto/home/login';
+$config['facebook_login_redirect_url']    = 'https://akademi-kripto.signto.work/login/login_fb';
+$config['facebook_logout_redirect_url']   = 'https://akademi-kripto.signto.work/login/logout';
 $config['facebook_login_type']            = 'web';
 $config['facebook_permissions']         = array('email,user_birthday,user_location,public_profile');
 $config['facebook_graph_version']         = 'v3.2';
