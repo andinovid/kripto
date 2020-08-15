@@ -51,7 +51,6 @@
                                                 <strong class="h4 m-0"><?php echo currency($top_course['price']); ?></strong>
                                             <?php endif; ?>
                                         <?php endif; ?>
-                                        <button onclick="handleCartItems(this)" class="btn btn-primary ml-auto"><i class="material-icons">add_shopping_cart</i></button>
                                     </div>
                                 </div>
                             </div>
@@ -179,7 +178,6 @@
                                                                 <strong class="h4 m-0"><?php echo currency($top_course['price']); ?></strong>
                                                             <?php endif; ?>
                                                         <?php endif; ?>
-                                                        <button onclick="handleCartItems(this)" class="btn btn-primary ml-auto"><i class="material-icons">add_shopping_cart</i></button>
                                                     </div>
                                                 </div>
                                             </div>
