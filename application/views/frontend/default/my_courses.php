@@ -53,9 +53,9 @@ foreach ($my_courses as $my_course) {
                                     <?php endfor; ?>
                                 </span>
                             </div>
-                            <div class="d-flex align-items-center">
-                                <a href="<?php echo site_url('home/course/' . rawurlencode(slugify($course_details['title'])) . '/' . $my_course['course_id']); ?>" class="btn btn-purple ml-auto"><?php echo site_phrase('course_detail'); ?></a>
-                                <a href="<?php echo site_url('home/lesson/' . rawurlencode(slugify($course_details['title'])) . '/' . $my_course['course_id']); ?>" class="btn btn-light ml-auto"><?php echo site_phrase('start_lesson'); ?></a>
+                            <div class="align-items-center mt-3">
+                                <a href="<?php echo site_url('home/course/' . rawurlencode(slugify($course_details['title'])) . '/' . $my_course['course_id']); ?>" class="btn btn-purple btn-block"><?php echo site_phrase('course_detail'); ?></a>
+                                <a href="<?php echo site_url('home/lesson/' . rawurlencode(slugify($course_details['title'])) . '/' . $my_course['course_id']); ?>" class="btn btn-light btn-block"><?php echo site_phrase('start_lesson'); ?></a>
                             </div>
 
                         </div>

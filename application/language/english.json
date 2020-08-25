@@ -616,5 +616,15 @@
     "student_edit_form": "Student edit form",
     "no_secret_key_found": "No secret key found",
     "student_add": "Student add",
-    "student_add_form": "Student add form"
+    "student_add_form": "Student add form",
+    "successfully_enrolled": "Successfully enrolled",
+    "no_section_found": "No section found",
+    "user_name": "User name",
+    "private_messaging": "Private messaging",
+    "private_message": "Private message",
+    "choose_an_option_from_the_left_side": "Choose an option from the left side",
+    "write_new_messages": "Write new messages",
+    "recipient": "Recipient",
+    "select_a_user": "Select a user",
+    "sent_message": "Sent message"
 }
